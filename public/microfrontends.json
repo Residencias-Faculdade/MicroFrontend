@@ -1,0 +1,8 @@
+[
+  {
+    "_comment": "Registro declarativo - shell busca este JSON em src/main.ts:123 e injeta <script src=url> para cada entrada. Só precisa de tag (com hífen), title e url",
+    "tag": "posts-crud",
+    "title": "Posts CRUD (primeiro-projeto)",
+    "url": "http://localhost:4200/main.js"
+  }
+]

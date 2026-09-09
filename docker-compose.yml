@@ -1,0 +1,62 @@
+# DOCKER COMPOSE - Sobe shell + posts-crud + keycloak na mesma rede app-network
+services:
+  # SHELL: Vite build servido por Nginx na porta 3000 (ver Dockerfile)
+  shell:
+    build:
+      context: . # Dockerfile da raiz
+      dockerfile: Dockerfile
+    ports:
+      - "${SHELL_PORT:-3000}:80" # host:container, lê .env ou usa 3000
+    networks:
+      - app-network
+    depends_on:
+      keycloak:
+        condition: service_started # espera keycloak iniciar (healthcheck)
+    restart: unless-stopped
+
+  # POSTS-CRUD: Micro frontend Angular (outro repo) na porta 4200
+  # Precisa expor main.js com CORS * e registrar customElements.define('posts-crud')
+  posts-crud:
+    build:
+      context: ../Caio/aprendendo/primeiro-projeto # caminho local do outro projeto
+      dockerfile: Dockerfile
+    ports:
+      - "${POSTS_CRUD_PORT:-4200}:80"
+    networks:
+      - app-network
+    depends_on:
+      keycloak:
+        condition: service_started
+    restart: unless-stopped
+
+
+  # KEYCLOAK: IdP OIDC - realm atividadengx importado de ./keycloak/realm.json
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2
+    command: start-dev --import-realm # modo dev + importa realm no boot
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false" # permite localhost
+    ports:
+      - "${KEYCLOAK_PORT:-8080}:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data # persiste dados
+      - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro # realm com client frontend + usuário Alec
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080 && echo -e \"GET /health/ready HTTP/1.1\\r\\nhost: localhost\\r\\nConnection: close\\r\\n\\r\\n\" >&3 && cat <&3 | grep -q \"200\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge # rede isolada shell <-> posts-crud <-> keycloak
+
+volumes:
+  keycloak-data: # volume nomeado para não perder realm/users ao dar down

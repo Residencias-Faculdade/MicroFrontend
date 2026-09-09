@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>atividadengx - Shell Micro Frontends</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="shell-header">
+      <h1>atividadengx</h1>
+      <nav>
+        <span id="userInfo" class="muted"></span>
+        <button id="logoutBtn" class="btn btn-ghost" style="display:none">Sair</button>
+      </nav>
+    </header>
+    <div id="loading" class="loading-screen">
+      <p>Verificando sessão...</p>
+    </div>
+    <div id="errorBox" class="error-box" style="display:none">
+      <p id="errorMsg"></p>
+      <button id="retryBtn" class="btn btn-primary">Tentar novamente</button>
+    </div>
+    <div id="appLayout" class="shell-layout" style="display:none">
+      <aside id="sidebar" class="sidebar">
+        <h3>Micro Frontends</h3>
+        <nav id="sidebarNav" class="sidebar-nav"></nav>
+        <div id="status" class="status"></div>
+      </aside>
+      <main class="shell-main">
+        <div id="microfrontends" class="microfrontends"></div>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

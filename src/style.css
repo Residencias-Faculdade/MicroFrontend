@@ -1,0 +1,184 @@
+/* SHELL STYLE - Layout da casca atividadengx */
+@import "./tokens.css"; /* importa variáveis --color-primary, --radius etc (src/tokens.css) */
+* {
+  box-sizing: border-box; /* padding não aumenta largura */
+}
+body {
+  margin: 0;
+  font-family: var(--font); /* system-ui definido em tokens */
+  background: #f8fafc; /* cinza claro de fundo */
+  color: var(--color-text);
+}
+/* Header branco sticky no topo com título e botão Sair */
+.shell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.shell-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+/* Card de login não usado quando onLoad=login-required, mas estilizado */
+.login-wall {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 57px);
+  padding: 20px;
+  background: #f8fafc;
+}
+.login-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.login-card h2 {
+  margin: 0 0 8px;
+}
+.login-card p {
+  margin: 0 0 16px;
+  color: var(--color-muted);
+}
+/* Grid principal: sidebar 240px + conteúdo 1fr */
+.shell-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: calc(100vh - 57px);
+}
+/* Sidebar branca com lista de micro frontends */
+.sidebar {
+  background: #fff;
+  border-right: 1px solid var(--color-border);
+  padding: 16px;
+  position: sticky;
+  top: 57px;
+  align-self: start;
+  height: calc(100vh - 57px);
+  overflow-y: auto;
+}
+.sidebar h3 {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+.sidebar-nav {
+  display: grid;
+  gap: 6px;
+}
+.sidebar-btn {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 500;
+}
+.sidebar-btn:hover {
+  background: #f9fafb;
+  border-color: var(--color-border);
+}
+.sidebar-btn.active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+.status {
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+.loading-screen {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 57px);
+  color: var(--color-muted);
+}
+.error-box {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  text-align: center;
+  color: #991b1b;
+}
+.shell-main {
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
+}
+.microfrontends {
+  display: grid;
+  gap: 20px;
+}
+.microfrontend-wrapper {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.microfrontend-wrapper.hidden {
+  display: none; /* só o selecionado fica visível */
+}
+.microfrontend-header {
+  padding: 10px 16px;
+  background: #f9fafb;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+.btn {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+.btn-ghost {
+  background: #f9fafb;
+}
+.muted {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+/* Mobile: sidebar vira topo */
+@media (max-width: 700px) {
+  .shell-layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+}

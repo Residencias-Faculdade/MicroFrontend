@@ -1,0 +1,3 @@
+<html><body><script>// SILENT SSO - Iframe invisível usado por keycloak-js check-sso
+// O Keycloak carrega este arquivo em iframe e espera parent.postMessage com a URL para renovar token sem redirect
+parent.postMessage(location.href, location.origin)</script></body></html>

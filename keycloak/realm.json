@@ -1,0 +1,67 @@
+{
+  "_comment_realm": "REALM IMPORTADO NO BOOT - montado em docker-compose.yml:41 com --import-realm. sslRequired external permite http localhost",
+  "realm": "atividadengx",
+  "enabled": true,
+  "displayName": "atividadengx",
+  "sslRequired": "external",
+  "registrationAllowed": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": false,
+  "roles": {
+    "realm": [
+      { "name": "admin", "description": "Administrador da aplicacao" },
+      { "name": "user", "description": "Usuario comum" }
+    ]
+  },
+  "clients": [
+    {
+      "_comment_client": "Client publico frontend usado pela shell src/main.ts:55 e micro frontends - sem secret, usa PKCE S256, standardFlow true",
+      "clientId": "frontend",
+      "name": "frontend",
+      "description": "Frontend shell e micro frontends",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "redirectUris": [
+        "http://localhost:3000/*",
+        "http://localhost:4200/*",
+        "http://localhost:4201/*",
+        "http://localhost:4202/*",
+        "http://localhost:8080/*"
+      ],
+      "webOrigins": ["*"],
+      "protocol": "openid-connect",
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      }
+    }
+  ],
+  "users": [
+    {
+      "_comment_user": "Usuario demo Alec Vinicius / Lost seas1 com roles admin+user e realm-admin para gerenciar Keycloak",
+      "username": "Alec Vinicius",
+      "enabled": true,
+      "email": "alec.vinicius@exemplo.com",
+      "firstName": "Alec",
+      "lastName": "Vinicius",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Lost seas1",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin", "user"],
+      "clientRoles": {
+        "realm-management": ["realm-admin"]
+      }
+    }
+  ]
+}

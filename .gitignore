@@ -1,0 +1,40 @@
+# Deps
+node_modules/
+yarn.lock
+pnpm-lock.yaml
+
+# Build
+dist/
+build/
+.vite/
+.cache/
+
+# Env (manter .env.example)
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker volume local (se mapear)
+keycloak-data/
+
+# Backup temporario
+*.bak
+*.bak_retorne
