@@ -32,7 +32,7 @@
       "redirectUris": [
         "http://localhost:3000/*",
         "http://localhost:4200/*",
-        "micro-frontend-rho.vercel.app",
+        "https://micro-frontend-rho.vercel.app/*",
         "http://localhost:4201/*",
         "http://localhost:4202/*",
         "http://localhost:8080/*"
